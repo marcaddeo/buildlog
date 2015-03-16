@@ -132,8 +132,9 @@ $ curl -L -O https://aur.archlinux.org/packages/pa/package-query/package-query.t
 $ cd package-query && makepkg -s && cd ..
 $ curl -L -O https://aur.archlinux.org/packages/ya/yaourt/yaourt.tar.gz
 $ cd yaourt && makepkg -s && cd ..
+```
 
-$## Install archey3
+## Install archey3
 ```
 $ yaourt archey3-git
 $ cat > ~/.archey3.cfg
