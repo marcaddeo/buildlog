@@ -71,7 +71,7 @@ I chose to start using GoT character names for my computer names, started with t
 I'm going with a static IP for my box, `192.168.1.200`.
 
 ```
-# cat << EOF | sudo tee -a /etc/netctl/local_network >/dev/null
+# cat | sudo tee /etc/netctl/local_network >/dev/null
 Description='A basic static ethernet connection'
 Interface=eno1
 Connection=ethernet
@@ -79,7 +79,7 @@ IP=static
 Address=('192.168.1.200/24')
 Gateway='192.168.1.1'
 DNS=('8.8.8.8' '8.8.4.4')
-EOF
+<C-d>
 # netctl enable local_network
 ```
 
@@ -89,16 +89,16 @@ We're using UEFI, so here are the commands I had to use.
 ```
 # pacman -S dosfstools efibootmgr gummiboot
 # gummiboot --path=/boot install
-# cat << EOF | sudo tee -a /boot/loader/entries/arch.conf >/dev/null
+# cat | sudo tee /boot/loader/entries/arch.conf >/dev/null
 title	Arch Linux
 linux	/vmlinuz-linux
 initrd	/initramfs-linux.img
 options	root=/dev/sda2 rw
-EOF
-# cat << EOF | sudo tee -a /boot/loader/loader.conf >/dev/null
+<C-d>
+# cat | sudo tee /boot/loader/loader.conf >/dev/null
 default arch
 timeout 5
-EOF
+<C-d>
 ```
 
 ## Post-installation
