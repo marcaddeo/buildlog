@@ -36,9 +36,6 @@ I'm using a Supermicro X10SL7-F motherboard, which supports UEFI so we're using 
 I created a USB stick installer for Arch.
 The first thing I had to do was update the boot order to boot the USB stick in UEFI boot mode.
 
-## Booting the install medium
-I then picked the first option in the Arch UEFI boot menu.
-
 ## Prepare the storage devices
 Arch was being installed on /dev/sda, a Mushkin 60GB SSD.
 
