@@ -39,9 +39,6 @@ The first thing I had to do was update the boot order to boot the USB stick in U
 ## Booting the install medium
 I then picked the first option in the Arch UEFI boot menu.
 
-## Establish an internet connection
-Didn't have to touch networking, DHCP worked flawlessly.
-
 ## Prepare the storage devices
 Arch was being installed on /dev/sda, a Mushkin 60GB SSD.
 
