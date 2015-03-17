@@ -31,7 +31,7 @@ Finally, time to install Arch on the server.
 
 I will be following through the Beginners' Guide from the spectacular Arch Wiki. I won't be copy and pasting it all into this writeup, only commenting on sections where I had different input than the default. This includes the contents of my configuration files, at the time of this writeup.
 
-## Prequisites
+## Prerequisites
 I'm using a Supermicro X10SL7-F motherboard, which supports UEFI so we're using UEFI.
 I created a USB stick installer for Arch.
 The first thing I had to do was update the boot order to boot the USB stick in UEFI boot mode.
