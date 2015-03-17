@@ -4,7 +4,7 @@ I'll be writing up my experience building a home fileserver for streaming media 
 ## Hardware
 
 * Case: Cooler Master Silencio 652S
-* PSU: be quit! Straight Power 10 500W Modular
+* PSU: be quiet! Straight Power 10 500W Modular
 * Motherboard: Supermicro X10SL7-F
 * CPU: Intel Core i3-4360 @ 3.7GHz
 * RAM: Crucial 8GB (4GBx2) DDR3 1600 Unbuffered ECC
