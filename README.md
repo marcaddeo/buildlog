@@ -113,6 +113,8 @@ timeout 5
 # systemctl enable ssh.service
 ```
 
+I then secured SSH by following [this guide](https://stribika.github.io/2015/01/04/secure-secure-shell.html).
+
 ### Add my user
 ```
 # useradd -m -G wheel -s /bin/bash marc
