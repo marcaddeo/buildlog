@@ -146,3 +146,10 @@ $ echo "archey3" >> ~/.bashrc
 ```
 
 TODO: Insert login picture w/ archey
+
+### Install mosh
+```
+$ yaourt mosh
+$ sudo iptables -A UDP -p udp --match multiport --dports 60000:61000 -j ACCEPT
+$ sudo iptables-save | sudo tee /etc/iptables/iptables.rules
+```
