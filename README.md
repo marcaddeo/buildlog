@@ -8,7 +8,7 @@ I'll be writing up my experience building a home fileserver for streaming media 
 * Motherboard: Supermicro X10SL7-F
 * CPU: Intel Core i3-4360 @ 3.7GHz
 * RAM: Crucial 8GB (4GBx2) DDR3 1600 Unbuffered ECC
-* OS Drive: Mushkin Enhanced Chronos 2.5" 60GB SATA3 SSD 
+* OS Drive: Mushkin Enhanced Chronos 2.5" 60GB SATA3 SSD
 * Storage Drives: 8x 3TB Western Digital Red NAS Hard Drives
 
 Putting everything together was pretty straightforward. The case actually has some really cool features. The main hard drive cage can convert from 2.5" to 3.5" by removing some screws and setting it out further. The main cage holds 4 drives, and the secondary cage 3 drives. The case also includes a plastic mounting tray to mount a 3.5" drive a 5.25" bay. There's also three places you can mount a 2.5" SSD within the case; behind the motherboard, the bottom of the case, and the bottom of the 5.25" cage. I chose to mount my SSD on the bottom of the case, due to the lenth of my SATA connectors. The case allows for some pretty good wire management/hiding, but with 9 drives and soundproofing material on the case panels it gets really tight in there. Was quite difficult to get the back panel closed.
