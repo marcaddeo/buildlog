@@ -153,3 +153,6 @@ $ yaourt mosh
 $ sudo iptables -A UDP -p udp --match multiport --dports 60000:61000 -j ACCEPT
 $ sudo iptables-save | sudo tee /etc/iptables/iptables.rules
 ```
+
+### Configure Time
+Realized my time was off.. Used [this](https://wiki.archlinux.org/index.php/Time) guide to configure `ntpd`. Had to sync my hwclock.
