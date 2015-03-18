@@ -156,3 +156,7 @@ $ sudo iptables-save | sudo tee /etc/iptables/iptables.rules
 
 ### Configure Time
 Realized my time was off.. Used [this](https://wiki.archlinux.org/index.php/Time) guide to configure `ntpd`. Had to sync my hwclock.
+
+### Install powerpanel
+I bought a CyberPower UPS for this server build, not going to risk losing power and losing data. Or getting hit by lightning, again.
+Followed [this guide](https://wiki.archlinux.org/index.php/CyberPower_UPS) and just used the default settings.
