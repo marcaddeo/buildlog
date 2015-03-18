@@ -121,6 +121,9 @@ I then secured SSH by following [this guide](https://stribika.github.io/2015/01/
 # passwd marc
 ```
 
+### Configure iptables
+I followed [this guide](https://wiki.archlinux.org/index.php/Simple_stateful_firewall) to setup a simple stateful firewall. For now, only port 22 is allowed.
+
 ### Install yaourt
 ```
 $ mkdir builds && cd $_
