@@ -38,28 +38,82 @@ The first thing I had to do was update the boot order to boot the USB stick in U
 
 ## Prepare the storage devices
 Arch was being installed on /dev/sda, a Mushkin 60GB SSD.
+I'll be using dm-crypt to create an encrypted zfs root.
 
-I partitioned using `parted`. I'm using `xfs` for `/`, `/var`, and `/home`. `/boot` is `fat32 (vfat)`.
+I partitioned using `parted`.
+
+Use GPT, /dev/sda1 is a 512M fat32 /boot. /dev/sda2 is formatted as Solaris Root and is the rest of the disk
 
 ```
-# parted /dev/sda
-(parted) mklabel gpt
-(parted) mkpart ESP fat32 1M 513M
-(parted) set 1 boot on
-(parted) name 1 boot
-(parted) mkpart primary xfs 513M 20.5G
-(parted) name 2 root
-(parted) mkpart primary xfs 20.5G 32.5G
-(parted) name 3 var
-(parted) mkpart primary xfs 32.5G 100%
-(parted) name 4 home
-(parted) quit
 # mkfs.vfat /dev/sda1
-# mkfs.xfs /dev/sda{2,3,4}
+# cryptsetup luksFormat -l 512 -c aes-xts-plain64 -h sha512 /dev/sda2
+# cryptsetup luksOpen /dev/sda2 cryptroot
 ```
 
 ## Select a mirror
 Generated one with the Mirrorlist Generator, specificly selecting US mirrors only.
+
+## Add demz-repo-archiso and install zfs
+```
+[demz-repo-archiso]
+Server = http://demizerone.com/$repo/$arch
+```
+
+```
+# mkdir /root/.gnupg
+# pacman-key -r 0EE7A126
+# pacman-key --lsign-key 0EE7A126
+# pacman -Syy archzfs-git
+# modprobe zfs
+# mkdir -p /etc/zfs
+# touch /etc/zfs/zpool.cache
+```
+
+## Partition the drive with zfs
+```
+# zpool create -f -o ashift=12 -o cachefile=/etc/zfs/zpool.cache zroot /dev/mapper/cryptroot
+# zfs create zroot/home -o mountpoint=/home
+# zfs create zroot/root -o mountpoint=/root
+# zfs create zroot/var -o mountpoint=legacy
+# zpool set bootfs=zroot zroot
+# zpool export zroot
+```
+
+## Mount the partitions
+```
+# zpool import -R /mnt zroot
+# mkdir -p /mnt/boot
+# mount /dev/sda1 /mnt/boot
+# mkdir -p /mnt/var
+# mount -t zfs zroot/var /mnt/var
+# mkdir -p /mnt/etc/zfs
+# cp /etc/zfs/zpool.cache /mnt/etc/zfs/zpool.cache
+```
+
+## Generate an fstab
+Need to comment out the zroot fs's from `/etc/fstab` so we can keep references of them but, zfs will auto mount them for us.
+
+Also have to add the following for `zroot/var`:
+```
+# <file system>        <dir>         <type>    <options>             <dump> <pass>
+zroot/var              /var          zfs       defaults,noatime      0      0
+```
+
+## Add demz-repo-core and install zfs
+```
+[demz-repo-core]
+Server = http://demizerone.com/$repo/$arch
+```
+
+```
+# mkdir /root/.gnupg
+# pacman-key -r 0EE7A126
+# pacman-key --lsign-key 0EE7A126
+# pacman -Syy zfs-git
+# modprobe zfs
+# systemctl enable zfs.target
+# systemctl start zfs.target
+```
 
 ## Time zone
 `# ln -s /usr/share/zoneinfo/America/New_York /etc/localtime`
@@ -83,6 +137,12 @@ DNS=('8.8.8.8' '8.8.4.4')
 # netctl enable local_network
 ```
 
+## Create an initial ramdisk environment
+Edit `/etc/mkinitcpio.conf` and make hooks like like so:
+```
+HOOKS="base udev autodetect modconf block keyboard encrypt zfs filesystems"
+```
+
 ## Install and configure a bootloader
 We're using UEFI, so here are the commands I had to use.
 
@@ -90,15 +150,28 @@ We're using UEFI, so here are the commands I had to use.
 # pacman -S dosfstools efibootmgr gummiboot
 # gummiboot --path=/boot install
 # cat | sudo tee /boot/loader/entries/arch.conf >/dev/null
-title	Arch Linux
-linux	/vmlinuz-linux
-initrd	/initramfs-linux.img
-options	root=/dev/sda2 rw
+title   Arch Linux
+linux   /vmlinuz-linux
+initrd  /initramfs-linux.img
+options cryptdevice=/dev/sda2:cryptroot zfs=zroot spl.spl_hostid=<hostId> quiet rw
 <C-d>
 # cat | sudo tee /boot/loader/loader.conf >/dev/null
 default arch
 timeout 5
 <C-d>
+```
+
+## Unmount the partitions and reboot
+```
+# exit
+# umount /mnt/boot
+# zfs umount -a
+# zpool export zroot
+```
+
+## After the first boot
+```
+# zpool set cachefile=/etc/zfs/zpool.cache zroot
 ```
 
 ## Post-installation
