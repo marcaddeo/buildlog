@@ -175,6 +175,8 @@ timeout 5
 ## After the first boot
 ```
 # zpool set cachefile=/etc/zfs/zpool.cache zroot
+# zfs set atime=off zroot
+# zfs set compression=lz4 zroot
 ```
 
 ## Post-installation
