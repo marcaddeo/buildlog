@@ -29,7 +29,10 @@ After wiring the 6 cables into the patch panel, it was time to determine which p
 # Installing Arch
 Finally, time to install Arch on the server.
 
-I will be following through the Beginners' Guide from the spectacular Arch Wiki. I won't be copy and pasting it all into this writeup, only commenting on sections where I had different input than the default. This includes the contents of my configuration files, at the time of this writeup.
+I will be following through the Beginners' Guide from the spectacular Arch Wiki. I won't be copy and pasting it all into this writeup, only commenting on sections where I had different input than the default. This includes the contents of my configuration files, at the time of this writeup. I also followed a combination of theese guides for the encrypted zfs root:
+
+https://gist.github.com/codedreality/6006664
+https://wiki.archlinux.org/index.php/Installing_Arch_Linux_on_ZFS
 
 ## Prerequisites
 I'm using a Supermicro X10SL7-F motherboard, which supports UEFI so we're using UEFI.
