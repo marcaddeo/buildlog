@@ -179,6 +179,13 @@ timeout 5
 # zfs set compression=lz4 zroot
 ```
 
+## Install cronie and zpool scrub cronjob
+```
+# pacman -Syy cronie
+# crontab -e
+30 19 * * 5 zpool scrub zroot
+```
+
 ## Post-installation
 
 ### Install vim
