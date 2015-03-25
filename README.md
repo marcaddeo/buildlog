@@ -14,7 +14,10 @@ I'll be writing up my experience building a home fileserver for streaming media 
 Putting everything together was pretty straightforward. The case actually has some really cool features. The main hard drive cage can convert from 2.5" to 3.5" by removing some screws and setting it out further. The main cage holds 4 drives, and the secondary cage 3 drives. The case also includes a plastic mounting tray to mount a 3.5" drive a 5.25" bay. There's also three places you can mount a 2.5" SSD within the case; behind the motherboard, the bottom of the case, and the bottom of the 5.25" cage. I chose to mount my SSD on the bottom of the case, due to the lenth of my SATA connectors. The case allows for some pretty good wire management/hiding, but with 9 drives and soundproofing material on the case panels it gets really tight in there. Was quite difficult to get the back panel closed.
 
 ## Pictures
-TODO
+TODO: Add more
+
+![](img/IMG_0008.JPG)
+![](img/IMG_0009.JPG)
 
 ## Initial Boot
 Once I got everything together, I grabbed a monitor and my Poker II keyboard excited to boot for the first time. Plug everything in, plug the PSU into the wall, hit the power button... Nothing. Lights on the motherboard are on, but nothing happens. No fans spinning, not even the CPU fan. After a few hours of troubleshooting with the help of a good friend of mine and some helpful strangers on IRC, I had determined it was a power problem (next time I should RTFM a little better) and ripped the motherboard out and connected only power to the board and CPU and lo-and-behold it turned on. As I was putting it back together, I realized I had one more standoff installed in the case that was causing the motherboard to short. Goddamnit.
