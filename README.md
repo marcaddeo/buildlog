@@ -1,5 +1,5 @@
 # The Build
-I'll be writing up my experience building a home fileserver for streaming media throughout my house, backing up my MacBook to it with Time Machine, and just generally storing lots and lots of stuff. When it's complete, it will have 18TB of usable storage, in a ZFS raidz2 pool. But, before all the drives are put into raidz2, I want to play with them and run some different configurations with them.
+I'll be writing up my experience building a home fileserver for streaming media throughout my house, backing up my MacBook to it with Time Machine, and just generally storing lots and lots of stuff. When it's complete, it will have 16TB of usable storage, in a ZFS raidz2 pool. But, before all the drives are put into raidz2, I want to play with them and run some different configurations with them.
 
 ## Hardware
 
