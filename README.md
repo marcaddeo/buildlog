@@ -18,6 +18,7 @@ TODO: Add more
 
 ![](img/IMG_0008.JPG)
 ![](img/IMG_0009.JPG)
+![](img/archey.png)
 
 ## Initial Boot
 Once I got everything together, I grabbed a monitor and my Poker II keyboard excited to boot for the first time. Plug everything in, plug the PSU into the wall, hit the power button... Nothing. Lights on the motherboard are on, but nothing happens. No fans spinning, not even the CPU fan. After a few hours of troubleshooting with the help of a good friend of mine and some helpful strangers on IRC, I had determined it was a power problem (next time I should RTFM a little better) and ripped the motherboard out and connected only power to the board and CPU and lo-and-behold it turned on. As I was putting it back together, I realized I had one more standoff installed in the case that was causing the motherboard to short. Goddamnit.
