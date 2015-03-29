@@ -1,5 +1,5 @@
 # The Build
-I'll be writing up my experience building a home fileserver for streaming media throughout my house, backing up my MacBook to it with Time Machine, and just generally storing lots and lots of stuff. When it's complete, it will have 16TB of usable storage, in a ZFS raidz2 pool. But, before all the drives are put into raidz2, I want to play with them and run some different configurations with them.
+I'll be writing up my experience building a home fileserver for streaming media throughout my house, backing up my MacBook to it with Time Machine, and just generally storing lots and lots of stuff. When it's complete, it will have 16TB of usable storage, in a ZFS raidz2 pool.
 
 ## Hardware
 
@@ -248,3 +248,27 @@ Realized my time was off.. Used [this](https://wiki.archlinux.org/index.php/Time
 ### Install powerpanel
 I bought a CyberPower UPS for this server build, not going to risk losing power and losing data. Or getting hit by lightning, again.
 Followed [this guide](https://wiki.archlinux.org/index.php/CyberPower_UPS) and just used the default settings.
+
+### Setup encrypted zpool with storage drives
+```
+Now we still have the 8x 3TB drives that haven't been touched. Time to put them into a raidz2 array so we can start filling them.
+
+I'll be encrypting the drives, and using a passphrase and a keyfile for decrypting at boot with `crypttab`.
+
+In the future I plan on chaning how I'm doing my keys, they'll be on a USB key that only gets plugged in for booting. Would also like to use GPG to decrypt the keyfiles as well, as they're just plaintext files.
+
+# parted -a optimal /dev/sd{b,c,d,e,f,g,h,i} mklabel gpt mkpart primary 2048s 100% p
+# cryptsetup --cipher aes-xts-plain64 --key-size 512 --hash sha512 --iter-time 5000 --use-urandom --verify-passphrase luksFormat /dev/sd{b,c,d,e,f,g,h,i}1
+# dd bs=1 count=4096 if=/dev/urandom of=/etc/keyfile iflag=fullblock
+# cryptsetup luksAddKey /dev/sd{b,c,d,e,f,g,h,i}1 /etc/keyfile
+# vim /etc/crypttab
+data0 /dev/sdb1 /etc/keyfile
+data1 /dev/sdc1 /etc/keyfile
+data2 /dev/sdd1 /etc/keyfile
+data3 /dev/sde1 /etc/keyfile
+data4 /dev/sdf1 /etc/keyfile
+data5 /dev/sdg1 /etc/keyfile
+data6 /dev/sdh1 /etc/keyfile
+data7 /dev/sdi1 /etc/keyfile
+# zpool create -m /data -o ashift=12 tank raidz2 dm-name-data0 dm-name-data1 dm-name-data2 dm-name-data3 dm-name-data4 dm-name-data5 dm-name-data6 dm-name-data7
+```
