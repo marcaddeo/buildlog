@@ -272,3 +272,28 @@ data6 /dev/sdh1 /etc/keyfile
 data7 /dev/sdi1 /etc/keyfile
 # zpool create -m /data -o ashift=12 tank raidz2 dm-name-data0 dm-name-data1 dm-name-data2 dm-name-data3 dm-name-data4 dm-name-data5 dm-name-data6 dm-name-data7
 ```
+
+### Setup Time Machine backups
+```
+$ yaourt netatalk
+$ sudo zfs create data/timemachines
+$ sudo zfs create data/timemachines/marc
+$ sudo zfs set quote=500G data/timemachines/marc
+$ sudo chown -R marc:marc /data/timemachines/marc
+$ sudo vim /etc/afp.conf
+[Global]
+mimic model = RackMac6,106
+log level = default:warn
+log file = /var/log/afpd.log
+hosts allow = 192.168.1.0/24
+
+[Time Machine]
+path = /data/timemachines/marc
+valid users = marc
+time machine = yes
+$ sudo iptables -A UDP -p udp --dport mdns -d 224.0.0.251 -j ACCEPT
+$ sudo iptables -A TCP -p tcp --dport afpovertcp -j ACCEPT
+$ iptables-save | sudo tee /etc/iptables/iptables.rules
+$ sudo systemctl enable netatalk.service
+$ sudo systemctl start netatalk.service
+```
